@@ -1,11 +1,11 @@
-﻿# Spotpatch - One-Liner PowerShell Installer
+# Spotpatch - One-Liner PowerShell Installer
 # Run locally: .\install.ps1
 # Or from web: iwr -useb https://raw.githubusercontent.com/<user>/<repo>/main/install.ps1 | iex
 
 [CmdletBinding()]
 param(
     [switch]$Uninstall,
-    [string]$RepoUrl = "https://github.com/spotpatch/spotpatch/archive/refs/heads/main.zip",
+    [string]$RepoUrl = "https://github.com/Iayss/spotpatch/archive/refs/heads/main.zip",
     [string]$InstallDir = "$env:APPDATA\spotpatch"
 )
 
@@ -95,5 +95,4 @@ if ($Uninstall) {
         Write-Host "`n[ERROR] Patching operation failed." -ForegroundColor Red
     }
 }
-
 

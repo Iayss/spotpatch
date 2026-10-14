@@ -1,4 +1,4 @@
-﻿# Spotpatch ðŸŽµðŸŽ¨
+# Spotpatch ðŸŽµðŸŽ¨
 
 > **Ultra-lightweight, zero-overhead Spotify Desktop theme engine & CEF patcher.**  
 > Native in-app customization palette, live color presets, Google Fonts switcher, Cinema Lyrics, and GPU-accelerated visual effects.
@@ -42,19 +42,19 @@
 Open PowerShell and paste:
 
 ```powershell
-irm https://raw.githubusercontent.com/spotpatch/spotpatch/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/Iayss/spotpatch/main/install.ps1 | iex
 ```
 
 ### Option B: One-Click (ZIP Download)
 
-1. [Download the latest repository ZIP](https://github.com/spotpatch/spotpatch/archive/refs/heads/main.zip) and extract it.
+1. [Download the latest repository ZIP](https://github.com/Iayss/spotpatch/archive/refs/heads/main.zip) and extract it.
 2. Double-click **`install.bat`**.
 3. Spotify will close, apply the patch, and relaunch automatically with the theme enabled.
 
 ### Option C: Manual CLI (Git)
 
 ```bash
-git clone https://github.com/spotpatch/spotpatch.git
+git clone https://github.com/Iayss/spotpatch.git
 cd spotpatch
 python patcher.py apply --restart
 ```
@@ -118,5 +118,4 @@ spotpatch/
 
 This project is licensed under the [MIT License](LICENSE).
 Spotify is a trademark of Spotify AB. Spotpatch is an independent open-source project and is not affiliated with or endorsed by Spotify.
-
 
