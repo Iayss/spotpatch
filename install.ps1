@@ -95,4 +95,3 @@ if ($Uninstall) {
         Write-Host "`n[ERROR] Patching operation failed." -ForegroundColor Red
     }
 }
-

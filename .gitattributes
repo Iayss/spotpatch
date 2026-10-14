@@ -1,0 +1,3 @@
+*.bat linguist-vendored
+*.ps1 linguist-vendored
+themes/default/settings.js linguist-generated
