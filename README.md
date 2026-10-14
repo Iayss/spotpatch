@@ -87,3 +87,10 @@ To cleanly restore Spotify back to its stock, unpatched state:
 ---
 
 ##  
+## Resource Usage
+
+| Configuration | Memory (Working Set) | CPU Overhead (Idle) |
+|---|---|---|
+| Stock Spotify | 1197.0 MB | ~0.1% |
+| Spotpatch | 1209.3 MB | ~0.1% |
+
