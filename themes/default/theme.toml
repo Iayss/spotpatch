@@ -1,0 +1,25 @@
+# Each table = one Encore color set. [base] also covers :root.
+# Other tables map to `.encore-dark-theme .encore-<name>-set`.
+
+[base]
+background-base = "#0d1117"
+background-highlight = "#161b22"
+background-press = "#1f2630"
+background-elevated-base = "#161b22"
+background-elevated-highlight = "#1f2630"
+background-elevated-press = "#262f3b"
+background-tinted-base = "#ffffff12"
+background-tinted-highlight = "#ffffff1f"
+text-base = "#e6edf3"
+text-subdued = "#8b949e"
+text-bright-accent = "#58a6ff"
+essential-base = "#e6edf3"
+essential-subdued = "#6e7681"
+essential-bright-accent = "#58a6ff"
+decorative-base = "#e6edf3"
+decorative-subdued = "#30363d"
+
+[bright-accent]
+background-base = "#58a6ff"
+background-highlight = "#79b8ff"
+background-press = "#388bfd"

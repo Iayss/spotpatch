@@ -1,0 +1,157 @@
+/* Raw overrides. Prefer stable hooks (data-testid, BEM-like names); hashed class names change per build. */
+:root {
+  --panel-gap: 6px;
+}
+
+/* Per-route styling driven by custom.js (html[data-route]). */
+html[data-route="search"] .main-view-container {
+  background: linear-gradient(180deg, #161b22 0, var(--background-base) 320px);
+}
+
+/* ===== Customization menu (settings.js) =====
+   settings.js only sets --custom-* variables and toggles body classes; all rules live here.
+   Animations use compositor-only properties (transform, opacity, filter). */
+:root {
+  /* Must NOT reference --text-bright-accent (it is redirected to this variable below -> cycle).
+     Default = accent from theme.toml; settings.js overrides it when a palette is chosen. */
+  --custom-accent: #58a6ff;
+  --custom-radius: 8px;
+  --custom-heading-spacing: normal;
+  --custom-heading-weight: 700;
+}
+
+/* Route every Spotify accent variable through --custom-accent.
+   `.encore-base-set` redeclares these per-subtree, so it has to be listed too. */
+:root,
+.encore-dark-theme,
+.encore-dark-theme .encore-base-set {
+  --spice-button: var(--custom-accent) !important;
+  --spice-button-active: var(--custom-accent) !important;
+  --text-bright-accent: var(--custom-accent) !important;
+  --background-tinted-base: var(--custom-accent) !important;
+  --essential-bright-accent: var(--custom-accent) !important;
+}
+
+/* Play / Pause */
+[data-testid="control-button-playpause"] {
+  background-color: var(--custom-accent) !important;
+  color: var(--background-base, #000) !important;
+}
+[data-testid="control-button-playpause"] svg {
+  fill: currentColor !important;
+}
+
+/* Active control buttons (shuffle, repeat, lyrics, queue, ...) + their indicator dot */
+button[aria-checked="true"],
+button[data-active="true"] {
+  color: var(--custom-accent) !important;
+}
+button[aria-checked="true"]::after,
+button[data-active="true"]::after {
+  background-color: var(--custom-accent) !important;
+}
+
+/* Typography */
+body.spx-font,
+body.spx-font * {
+  font-family: var(--custom-font) !important;
+}
+body.spx-heading-weight :is(h1, h2, h3, [class*="encore-text-title"], [class*="encore-text-headline"]) {
+  font-weight: var(--custom-heading-weight) !important;
+}
+body.spx-heading-spacing :is(h1, h2, h3, [class*="encore-text-title"], [class*="encore-text-headline"]) {
+  letter-spacing: var(--custom-heading-spacing) !important;
+}
+
+/* Border radius: cards, covers, main panels */
+body.spx-radius :is([data-encore-id="card"], [data-encore-id="cardImage"], [data-testid="card-image"], [data-testid="entity-image"],
+  [data-testid="cover-art-slot"] img, [data-testid="now-playing-widget"] img, .main-view-container, .Root__main-view, .Root__nav-bar, .Root__right-sidebar) {
+  border-radius: var(--custom-radius) !important;
+}
+
+/* Cinema Lyrics */
+body.spx-cinema-lyrics [data-testid="lyrics-line"] {
+  font-size: clamp(28px, 2.6vw, 44px) !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  transform-origin: center center;
+}
+
+/* Karaoke focus. Active line detection is attribute-based (first match wins); if Spotify exposes none of these,
+   no line has an active sibling and the rules below never apply (lyrics stay sharp). */
+body.spx-lyrics-focus :has(> [data-testid="lyrics-line"]:is([aria-current="true"], [aria-current="step"], [data-active="true"], [data-current="true"])) > [data-testid="lyrics-line"] {
+  filter: blur(1.5px);
+  opacity: 0.45;
+  transform: scale(0.96);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, filter 0.35s ease;
+}
+body.spx-lyrics-focus.spx-cinema-lyrics :has(> [data-testid="lyrics-line"]:is([aria-current="true"], [aria-current="step"], [data-active="true"], [data-current="true"])) > [data-testid="lyrics-line"] {
+  transform-origin: center center;
+}
+body.spx-lyrics-focus :has(> [data-testid="lyrics-line"]:is([aria-current="true"], [aria-current="step"], [data-active="true"], [data-current="true"])) > [data-testid="lyrics-line"]:hover {
+  filter: blur(0);
+  opacity: 0.8;
+}
+body.spx-lyrics-focus :has(> [data-testid="lyrics-line"]:is([aria-current="true"], [aria-current="step"], [data-active="true"], [data-current="true"])) > [data-testid="lyrics-line"]:is([aria-current="true"], [aria-current="step"], [data-active="true"], [data-current="true"]) {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1.03);
+  text-shadow: 0 0 18px currentColor;
+}
+
+/* Vinyl Spin */
+@keyframes spx-spin {
+  to { transform: rotate(360deg); }
+}
+body.spx-vinyl-spin [data-testid="now-playing-widget"] [data-testid="cover-art-button"] {
+  border-radius: 50% !important;
+  overflow: hidden;
+  animation: spx-spin 14s linear infinite;
+  will-change: transform;
+}
+body.spx-vinyl-spin [data-testid="now-playing-widget"] [data-testid="cover-art-button"] img {
+  border-radius: 50% !important;
+}
+
+/* Progress / volume bars: recolor the fill + thumb via Spotify's own variables (no background on the wrapper). */
+[data-testid="progress-bar"] {
+  --fg-color: var(--custom-accent) !important;
+  --is-active-fg-color: var(--custom-accent) !important;
+}
+[data-testid="progress-bar-handle"] {
+  background-color: var(--custom-accent) !important;
+}
+
+/* Glow only on the filled part. The bar root has overflow:hidden (would clip the glow), so lift it;
+   the fill's own wrapper keeps its rounded clip and gets the drop-shadow (post-clip, so it is not cut off). */
+body.spx-glow-bars [data-testid="progress-bar"] {
+  overflow: visible !important;
+}
+body.spx-glow-bars [data-testid="progress-bar-background"] > div:has(> div) {
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px var(--custom-accent));
+}
+
+/* Smooth hover cards */
+body.spx-hover-cards [data-encore-id="card"] {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+body.spx-hover-cards [data-encore-id="card"]:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Glassmorphism */
+body.spx-glass :is([data-testid="now-playing-bar"], header[data-testid="topbar"], [role="menu"], [data-testid="context-menu"]) {
+  background-color: color-mix(in srgb, var(--background-elevated-base, #1f1f1f) 65%, transparent) !important;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* Clean UI */
+body.spx-hide-upgrade :is([data-testid="upgrade-button"], a[href="/premium"], a[href^="https://www.spotify.com/premium"]),
+body.spx-hide-install :is([data-testid="download-app-button"], a[href="/download"], a[href*="spotify.com/download"]),
+body.spx-hide-npv :is(.Root__right-sidebar, [data-testid="control-button-npv"]),
+body.spx-hide-ads :is([data-testid="home-ads-container"], [data-testid="ads-video-player-npv"], [data-testid="sponsored-playlist-cover-art-fallback"]) {
+  display: none !important;
+}
